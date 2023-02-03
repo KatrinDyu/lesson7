@@ -1,6 +1,4 @@
-﻿/* Напишите программу, которая на вход принимает позиции 
-элемента в двумерном массиве, и возвращает значение этого 
-элемента или же указание, что такого элемента нет. */
+﻿/* Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце. */
 Console.Clear();
 Console.Write("Введите количество строк массива: ");
 int rows = int.Parse(Console.ReadLine());
@@ -34,23 +32,21 @@ void PrintArray(int[,] inArray)
         Console.WriteLine();
     }
 }
-Console.Write("vvedite element");
-int element = int.Parse(Console.ReadLine());
 
-if (SearchElement(array, element))
- { 
-    Console.WriteLine("etot element");
-     }
-    else Console.WriteLine("elementa net"); 
+double[] midlecolumns = GetResult(array);
+Console.WriteLine($"srednearifmeticheskoe v stolbce = {String.Join(";", midlecolumns)}");
 
-bool SearchElement(int[,] arr, int el)
+double[] GetResult(int[,] array)
 {
-    for (int i = 0; i < arr.GetLength(0); i++)
+    double[] result = new double[array.GetLength(1)];
+    for (int columns = 0; columns < array.GetLength(1); columns++)
     {
-        for (int j = 0; j < arr.GetLength(1); j++)
+        double sum = 0;
+        for (int rows = 0; rows < array.GetLength(0); rows++)
         {
-            if (arr[i, j] == el) return true;
+            sum += array[rows, columns];
         }
-            return false;
+        result[columns] = Math.Round(sum / array.GetLength(0), 2);
     }
+    return result;
 }
